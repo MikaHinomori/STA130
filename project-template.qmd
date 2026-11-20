@@ -105,15 +105,102 @@ iris |>
 
 Insights for Q1
 
-## Question #2: \[Name - Question Statement\]
+## Question #2: Yuk Shing Pang
 
-\[Repeat structure from Q1\]
+**Major question:** Are higher rent, household income, or lower share of subsidized renters associated with more renters spending 30% or more of their income in housing in the neighborhoods of Toronto.
+
+**Follow-up:** Is the link with rent stronger in neighbourhoods with more low-income residents?
+
+**Why it matters:** Housing is a large consumption for people living in Toronto. When it costs more than 30% of a household's income, renters may have less money left for food, transport, and other needs. Knowing which factor goes with a heavier burden shows where help for renters could matter most.
+
+**Link to our theme:** This question connects to the housing part of our theme. It looks at how much renters in different neighbourhoods spend on housing, and compares rent, subsidized renters, and income.
 
 ## Q2: Variables & Approach
 
+**Variables used:**
+
+*Output variable:*
+
+-   `pct_renters_30plus_shelter`: % of renter households spending 30%+ of income on shelter cost
+
+*Explanatory Variables:*
+
+-   `median_monthly_rent`: median monthly rent including utilities (\$)
+
+-   `median_household_income`: median household income (\$)
+
+-   `pct_subsidized_renters`: % of renter households in subsidized housing
+
+*Other Variables:*
+
+-   `low_income_pct`: % of residents classified as having low income according to the after-tax Low-income Measure
+
+**Approach:**
+
+-   Plot the response against each explanatory variable with a fitted line.
+
+-   Use R squared to rank them by how much variation each explains alone.
+
 ## Q2: Visualization
 
+```{r q2-plot, fig.width = 9, fig.height = 3.4, out.width = "100%", fig.cap = "Each point is a neighbourhood. y-axis: % of renters spending 30% or more of their income on shelter. Lighter points have more low-income residents."}
+q2_rent <- toronto |>
+  ggplot(aes(x = median_monthly_rent/1000, y = pct_renters_30plus_shelter,
+             color = low_income_pct)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Median monthly rent ($1000s)",
+       color = "% low-income residents",
+       y = "% renters spending 30%+") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+
+q2_subsidy <- toronto |>
+  ggplot(aes(x = pct_subsidized_renters, y = pct_renters_30plus_shelter, color = low_income_pct)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "% subsidized renters", y = NULL) +
+  theme_bw() +
+  theme(legend.position = "none")
+
+q2_income <- toronto |>
+  ggplot(aes(x = median_household_income/1000, y = pct_renters_30plus_shelter, color = low_income_pct)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Median income ($1000s)", y = NULL) +
+  theme_bw() +
+  theme(legend.position = "none")
+
+plot_grid(q2_rent, plot_grid(q2_subsidy, q2_income, ncol = 1), ncol = 2)
+```
+
 ## Q2: Summary Table
+
+```{r}
+library(broom)
+model_rent    <- lm(pct_renters_30plus_shelter ~ median_monthly_rent, data = toronto)
+model_subsidy <- lm(pct_renters_30plus_shelter ~ pct_subsidized_renters, data = toronto)
+model_income  <- lm(pct_renters_30plus_shelter ~ median_household_income, data = toronto)
+eva_rent <- model_rent |> glance() |>
+  select(r.squared, adj.r.squared, AIC, BIC) |>
+  mutate(Model = "Rent")
+eva_subsidy <- model_subsidy |> glance() |>
+  select(r.squared, adj.r.squared, AIC, BIC) |>
+  mutate(Model = "Subsidized renters")
+eva_income <- model_income |> glance() |>
+  select(r.squared, adj.r.squared, AIC, BIC) |>
+  mutate(Model = "Income")
+bind_rows(eva_rent, eva_subsidy, eva_income) |>
+  select(Model, r.squared, adj.r.squared, AIC, BIC) |>
+  kable(digits = 2,
+        col.names = c("Model", "R squared", "Adjusted R squared", "AIC", "BIC"),
+        caption = "Comparing three regression models for % of renters spending 30%+ on housing. Higher R squared and lower AIC/BIC mean a better fit.")
+
+```
+
+-   The rent model fits best since it can explains 53% of the differences in burden, and it has the lowest AIC and BIC.
+-   The subsidized renters model explains 36% of the variation. It also shows that areas with more subsidized renters tend to have fewer rent-burdened households.
+-   The income model explains almost nothing, but where rent is high, areas with more low-income residents (lighter points in the rent plot) are the most burdened.
 
 ## Question #3: \[Name - Question Statement\]
 
