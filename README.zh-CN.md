@@ -17,7 +17,7 @@
 - **数据来源：** [STA130 GitHub Repository](https://github.com/skyepaphora/STA130-FA26/tree/main/Project)
 - **数据文件：** `toronto_neighbourhoods_STA130.csv`
 - **数据规模：** 158 个社区，80 个变量
-- **分析工具：** R、tidyverse、ggplot2、Quarto
+- **分析工具：** R
 
 ## 小组研究问题
 
