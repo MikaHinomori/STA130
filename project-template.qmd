@@ -23,6 +23,7 @@ library(tidyverse)
 library(knitr)
 library(cowplot)
 library(moderndive)
+library(broom)
 knitr::opts_chunk$set(
 echo = FALSE,
 include = TRUE,
