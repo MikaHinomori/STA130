@@ -1,5 +1,5 @@
 ---
-title: "Project Title"
+title: "..."
 subtitle: "Project subtitle (if applicable)"
 author: "Jerry Jiang  | Mingzhe Li | Yuk Shing Pang | Jiayi Wu | Group 202-A"
 date: today
@@ -39,7 +39,7 @@ out.width = "80%"
 
 ```{r load-data, echo=FALSE}
 ### Read in data
-
+# toronto <- read_csv("toronto_neighbourhoods_STA130.csv", show_col_types = FALSE)
 ```
 
 ## Introduction
@@ -210,13 +210,126 @@ bind_rows(eva_rent, eva_subsidy, eva_income) |>
 
 ## Q3: Summary Table
 
-## Question #4: \[Name - Question Statement\] (if applicable)
+## Question #4: \[Jerry - Income and Public Transit Commuting\]
+
+\[How does median household income relate to public transit commuting rates across Toronto neighbourhoods, and how does this relationship vary by majority high-rise status?\]
 
 ## Q4: Variables & Approach
 
+**Variables used:**
+
+- \[median_household_income\]: Median total annual household income in 2020, measured in Canadian dollars. Half of households have incomes below this value, and approximately half have incomes above it. This is a numerical variable, and is explanatory variable (X).
+
+- \[pct_transit_commuters\]: Percentage of employed commuters who use public transport as their main mode of transportation to work, among those with a usual workplace or no fixed workplace address. This is a numerical variable, and is response variable (Y).
+
+- \[majority_highrise\]: Indicates whether more than 50% of occupied private dwellings in the neighbourhood are apartments in buildings with five or more storeys. This is a categorical variable. Categories: Yes or No.
+
+- \[neighbourhood\]: Name of the Toronto neighbourhood. This is a categorical variable, and is identifier.
+
+**New variables/groups defined:**
+
+- \[highrise_group\]: Convert Yes/No to clearer labels.
+
+- \[income_10k\]: Income divided by 10,000 to calculate regression slope. If use \[income\] directly, the linear regression slope will represent income increase by \$1, which will cause the public transit commuters percentage be very small.
+
+```{r q4-data}
+q4_data <- toronto |> 
+  select(neighbourhood, median_household_income,
+         pct_transit_commuters, majority_highrise) |>
+  mutate(
+    highrise_group = factor(
+      if_else(majority_highrise == "Yes",
+              "Majority high-rise", "Other neighbourhoods"),
+      levels = c("Majority high-rise", "Other neighbourhoods")
+    ),
+    income_10k = median_household_income / 10000
+  )
+```
+
 ## Q4: Visualization
 
+```{r q4-plot}
+ggplot(q4_data, 
+       aes(x = median_household_income,
+           y = pct_transit_commuters,
+           color = highrise_group)) +
+  geom_point(alpha = 0.65) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "Household income and public transit commuting",
+    subtitle = "Toronto neighbourhoods grouped by majority high-rise status",
+    x = "Median household income (CAD)",
+    y = "Public transit commuters (%)",
+    color = "Neighbourhood type") +
+   
+  scale_x_continuous(labels = scales::label_dollar(scale = 0.001, 
+                                                   suffix = "k")) +
+  theme(legend.position = "bottom")
+```
+
+**How to interpret data:** Each dots represents one data. The fitted line show the relationship between household income and transit commuting within each housing group.
+
+**How to write the linear regression line:** We need the tibble contains both intercept and slope for highrise and other neighborhoods model.
+
+```{r q4-tibble}
+model_major_highrise <- lm(
+  pct_transit_commuters ~ income_10k,
+  data = filter(q4_data, majority_highrise == "Yes")
+)
+
+model_others <- lm(
+  pct_transit_commuters ~ income_10k,
+  data = filter(q4_data, majority_highrise == "No")
+)
+
+tibble(
+  intercept = c(coef(model_major_highrise)[1], coef(model_others)[1]),
+  slope = c(coef(model_major_highrise)[2], coef(model_others)[2])
+)
+```
+
+Now, we can conclude the equations.  
+**Majority high-rise:**  
+$$
+\hat{y_1} = 47.66 - 2.37x
+$$
+
+**Other neighborhoods:**  
+$$
+\hat{y_2} = 37.99 - 1.46x
+$$  
+which: \[x\]：Median household income (in CAD \$10,000),\
+\[y\]：Observed percentage of public transit commuters,\
+\[hat y_1\]：Predicted transit commuting percentage for majority high-rise neighborhoods,\
+\[hat y_2\]：Predicted transit commuting percentage for other neighborhood.
+
 ## Q4: Summary Table
+
+```{r q4-table}
+q4_summary <- q4_data |> 
+  group_by(highrise_group) |> 
+  summarize(
+    n = n(),
+    `Median Income (CAD)` = scales::dollar(
+      median(median_household_income)
+    ),
+    `Median Transit (%)` = median(pct_transit_commuters),
+  )
+
+q4_summary |> 
+kable(caption = "Comparison of highrise status",
+      align = "lccc")
+```
+
+Insights for Q4:  
+Now, back to the Question 4, does income relates to transit? Yes, because the slope of two linear regression lines are both negative, which means higher income households usually have lower public transit proportion in majority highrise and other neighborhoods. i.e. negative association.  
+
+What's the difference between median household income and public transit rates in majority highrise and other neighborhoods? Through summary table, majority highrise neighborhoods tend to have lower household incomes and higher public transit commuting rates.  
+
+If two household income changes the same, how will the public transit commuter rate change? For example, if we increase the household income for two neighborhoods both by \$10k, which is x = 9, compare to x = 8, we found that $$\Delta\hat{y}_1 = (47.66-2.37(9)) -(47.66-2.37(8))=-2.37\text{ percentage} $$, and $$\Delta\hat{y}_2 = (37.99-1.46(9)) -(37.66-1.46(8))=-1.46\text{ percentage} $$. And that means, for the same increase of income of $10k, majority highrise neighborhood's predict public transit rate will down 0.91% (2.37-1.46) more than other neighborhoods. 
+
+**Q4 limitations**
+- Neighborhoods are divided into only two groups based on if this building is higher than 5 floors. This may hide differences between neighborhoods with different proportions of high-rise housing. For example, a 51% highrise rate neighborhood is in the same category with a 95% highrise rate neighborhood.
 
 ## Overall Limitations
 
