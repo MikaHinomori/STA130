@@ -249,8 +249,10 @@ q4_data <- toronto |>
 ```
 
 ## Q4: Visualization
+:::: {.columns}
 
-```{r q4-plot}
+::: {.column width="62%"}
+```{r q4-plot, fig.width=6, fig.height=3, out.width="100%"}
 ggplot(q4_data, 
        aes(x = median_household_income,
            y = pct_transit_commuters,
@@ -268,6 +270,20 @@ ggplot(q4_data,
                                                    suffix = "k")) +
   theme(legend.position = "bottom")
 ```
+:::
+
+::: {.column width="38%"}
+**Majority high-rise:**  
+$$
+\hat{y_1} = 47.66 - 2.37x
+$$
+
+**Other neighborhoods:**  
+$$
+\hat{y_2} = 37.99 - 1.46x
+$$  
+:::
+::::
 
 **How to interpret data:** Each dots represents one data. The fitted line show the relationship between household income and transit commuting within each housing group.
 
