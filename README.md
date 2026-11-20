@@ -17,7 +17,7 @@ Our group will investigate four separate research questions, then bring the find
 - **Source:** [STA130 GitHub Repository](https://github.com/skyepaphora/STA130-FA26/tree/main/Project)
 - **Data file:** `toronto_neighbourhoods_STA130.csv`
 - **Dataset size:** 158 neighbourhoods and 80 variables
-- **Tools:** R, tidyverse, ggplot2, Quarto
+- **Tools:** R
 
 ## Group Research Questions
 
