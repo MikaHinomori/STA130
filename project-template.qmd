@@ -63,47 +63,75 @@ toronto <- read_csv("toronto_neighbourhoods_STA130.csv", show_col_types = FALSE)
 
 - \[Any transformations, new variables created\]
 
-## Question #1: \[Name - Question Statement\]
+## Question #1: Jiayi Wu - Income and Renting
 
-\[Clear statement of the research question\]
+**Research question:** Do Toronto neighbourhoods with lower median household incomes tend to have a higher percentage of renter households, and does this relationship differ across the city's four regions?
+
+- **Why it matters:** Household incomes and renting patterns vary across Toronto. Looking at the relationship in each region could help the City understand differences that a city-wide figure might hide.
 
 ## Q1: Variables & Approach
 
 **Variables used:**
 
-- \[List variables\]
+-   **Explanatory (X):** `median_household_income` (annual, CAD; 2020 income).
+-   **Response (Y):** `pct_renters` (percentage of private households that rent).
+-   **Grouping:** `toronto_region` (four Community Council areas).
 
 **New variables/groups defined:**
 
-- \[Any created variables\]
+-   `income_10k` = `median_household_income / 10000` (income measured in units of CAD \$10,000).
+-   `renter_pct` is a shorter name for `pct_renters`; `region` is a shortened label from `toronto_region`.
+-   **No new neighbourhood groups** are needed: the four regions already exist in the dataset.
+-   **Method:** We compare neighbourhood scatterplots, fitted lines, Pearson correlations and regression slopes across the four regions. Only neighbourhoods with complete Q1 data are included.
 
 ## Q1: Visualization
 
-```{r q1-plot}
-#Your plot code here 
-iris |>
-  ggplot(aes(x=Species, y=Sepal.Length)) +
-  geom_boxplot() +
-  ylab("Sepal Length")
+```{r q1-plot, fig.width=9, fig.height=4, out.width="93%"}
+q1_data <- toronto |>
+  mutate(region = str_remove(toronto_region, " Community Council")) |>
+  drop_na(median_household_income, pct_renters, region)
+
+ggplot(q1_data, aes(median_household_income / 10000, pct_renters)) +
+  geom_point(alpha = 0.65, colour = "#286A8C") +
+  geom_smooth(method = "lm", se = FALSE, colour = "#BC483B") +
+  facet_wrap(~ region, ncol = 2) +
+  labs(
+    x = "Median household income (CAD, $10,000s)",
+    y = "Renter households (%)",
+    caption = "Each dot is a neighbourhood; lines are fitted separately by region."
+  ) +
+  theme_bw(base_size = 11)
 ```
 
 ## Q1: Summary Table
 
-```{r q1-table}
-#Your summary table here
-
-# Here is an example of a nicely formatted table, using the kable function
-iris |>
-  group_by(Species) |>
+```{r q1-table, results='asis'}
+q1_stats <- q1_data |>
+  group_by(region) |>
   summarise(
-    Count = n(),
-    `Avg Sepal Length` = round(mean(Sepal.Length), 1),
-    `Avg Petal Length` = round(mean(Petal.Length), 1)
+    N = n(),
+    renters = mean(pct_renters),
+    r = cor(median_household_income, pct_renters),
+    slope = coef(lm(pct_renters ~ median_household_income))[2] * 10000,
+    .groups = "drop"
+  )
+q1_city_r <- cor(q1_data$median_household_income, q1_data$pct_renters)
+
+q1_stats |>
+  transmute(
+    Region = region, N,
+    `Renters (%)` = sprintf("%.1f", renters),
+    `Pearson r` = sprintf("%+.2f", r),
+    `Slope (pp/$10k)` = sprintf("%+.1f", slope)
   ) |>
-  kable(caption = "Comparison of Iris Species")
+  knitr::kable(format = "latex", booktabs = TRUE,
+               align = c("l", "r", "r", "r", "r"),
+               caption = "Income and renter share by region")
 ```
 
 Insights for Q1
+
+Across `r nrow(q1_data)` Toronto neighbourhoods with complete data, the correlation between median household income and renter share is `r sprintf("%+.2f", q1_city_r)`, indicating a `r if (q1_city_r < 0) "negative" else if (q1_city_r > 0) "positive" else "zero"` linear association. Looking at each region separately, `r sum(q1_stats$r < 0)` of the four regions show negative correlations. The estimated slopes range from `r sprintf("%+.1f", min(q1_stats$slope))` to `r sprintf("%+.1f", max(q1_stats$slope))` percentage points in renter share for every \$10,000 increase in median household income. The largest slope in absolute terms is in `r q1_stats$region[which.max(abs(q1_stats$slope))]` (`r sprintf("%+.1f", q1_stats$slope[which.max(abs(q1_stats$slope))])` percentage points per \$10,000). These regional patterns offer the City a more detailed picture than a single city-wide figure, although differences in slopes have not been formally tested.
 
 ## Question #2: Yuk Shing Pang
 
