@@ -461,4 +461,4 @@ Insights for Q4:
 
 ## Connection to Theme
 
-- **Housing costs (Q2):** 
+- **Housing costs (Q2):** Although income is an important determinant of living quality, our findings suggest that choosing a neighborhood with lower median rent can reduce renter burden and improve overall quality of life.
