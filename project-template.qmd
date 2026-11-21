@@ -45,20 +45,22 @@ data <- read_csv("toronto_neighbourhoods_STA130.csv", show_col_types = FALSE)
 
 ## Introduction
 
-**Overall Theme:** \[State your unifying theme\]
+**Overall Theme:** How Income Shapes Life in Toronto's Neighbourhoods.
 
-**Research Goal:** \[What are you investigating?\]
+**Research Goal:** To see how neighbourhood income relates to renting, housing costs, housing condition, and transit use across Toronto, and whether these links differ between types of neighbourhoods.
 
-**Target Population:** \[Who/what is being studied?\]
+**Target Population:** All residents in the city of Toronto in 2021.
 
-**Audience:** \[Who is this for?\]
+**Audience:** Residents choosing where to live.
 
 ## Data Summary
 
 **Key Variables:**
 
-- Variable 1: \[Description\]
-- Variable 2: \[Description\]
+- Q1: `median_household_income`, `pct_renters` (% of households that rent), `toronto_region`
+- Q2: `pct_renters_30plus_shelter` (% of renters spending 30%+ of income on housing), `median_monthly_rent`, `pct_subsidized_renters`, `median_household_income`, `low_income_pct`
+- Q3: `pct_older_housing` (% of homes built in 1980 or earlier), `pct_major_repairs`, `pct_condos`
+- Q4: `median_household_income`, `pct_transit_commuters`, `majority_highrise`
 
 **Data Wrangling:**
 
