@@ -234,9 +234,11 @@ bind_rows(eva_rent, eva_subsidy, eva_income) |>
 -   The subsidized renters model explains 36% of the variation. It also shows that areas with more subsidized renters tend to have fewer rent-burdened households.
 -   The income model explains almost nothing, but where rent is high, areas with more low-income residents (lighter points in the rent plot) are the most burdened.
 
+
+
 ## Question #3: \[Mingzhe Li - House age and repair need\]
 
-Weather exist association between percentage of old house(built 1980 or earlier) and percentage between percentage of dwelling houses require repair, and whether it is affected by percentage of condominium.
+How are percentages of older-housing and percentages of major-repair related across Toronto neighbourhoods, and how do these patterns vary with median household income?
 
 ## Q3: Variables & Approach
 
@@ -244,55 +246,38 @@ Weather exist association between percentage of old house(built 1980 or earlier)
 
 -   pct_older_housing
 -   pct_major_repairs
+-   median_household_income
 
-**New variables/groups defined:**
-
--   percentage_old_dwelling
 
 ## Q3: Visualization
 
 ```{r q3-plot}
-#Your plot code here 
-data |>
-  ggplot(aes(y=pct_major_repairs, x=pct_older_housing)) +
-  geom_point() +
-  ylab("percentage of house require major repairs")+
-  xlab("percentage of older housing")
-
-
-```
-
-## Q3: Visualization
-
-```{r q3-plot-2}
-#Your plot code here 
 data|>
-  ggplot(aes(y=pct_major_repairs, x=pct_older_housing, colour = pct_condos)) +
+  ggplot(aes(y=pct_major_repairs, x=pct_older_housing, colour = median_household_income)) +
   geom_point() +
+  geom_smooth(method = "lm", se = FALSE)+
   scale_colour_gradient(
     high = "#132B43",
     low = "#56B1F7") +
-  labs(x = "percentage of older housing(%)", y ="percentage of house require major repairs(%)", colour = "percentage of \n condominium" )
+  labs(x = "percentage of older housing(%)", y ="percentage of house require major repairs(%)", colour = "median \n household income" )
 
 ```
 
 ## Q3: Summary Table
 
 ```{r q3-table}
-#Your summary table here
 
-# Here is an example of a nicely formatted table, using the kable function
 data |>
   mutate(percentage_old_dwelling = case_when(
-    pct_older_housing <=25 ~"0~25",
-    pct_older_housing <= 50 ~"25~50",
-    pct_older_housing <=75 ~"50~75",
-    TRUE ~ "75~100"
+    pct_older_housing <=25 ~"0%~25%",
+    pct_older_housing <= 50 ~"25%~50%",
+    pct_older_housing <=75 ~"50%~75%",
+    TRUE ~ "75%~100%"
   ))|>
   group_by(percentage_old_dwelling) |>
   summarise(
     "number of communities" = n(),
-    'mean percentage of major repairs' = round(mean(pct_major_repairs),2)
+    'mean percentage of major repairs(%)' = round(mean(pct_major_repairs),2)
   ) |>
   kable(caption = "Comparison of percentages")
 ```
@@ -301,9 +286,10 @@ Insights for Q3:
 
 -   Toronto neighbourhoods with higher older-housing percentages tend to have higher major-repair percentages.
 
--   Higher condominium percentages tend to coincide with lower older-housing and major-repair percentages.
+-   Higher median income tend to coincide with lower major-repair percentages.
 
--   These patterns could help the Open Data partner investigate neighbourhood housing repair needs.
+
+
 
 ## Question #4: \[Jerry - Income and Public Transit Commuting\]
 
