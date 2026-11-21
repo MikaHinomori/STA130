@@ -59,12 +59,13 @@ data <- read_csv("toronto_neighbourhoods_STA130.csv", show_col_types = FALSE)
 
 - Q1: `median_household_income`, `pct_renters` (% of households that rent), `toronto_region`
 - Q2: `pct_renters_30plus_shelter` (% of renters spending 30%+ of income on housing), `median_monthly_rent`, `pct_subsidized_renters`, `median_household_income`, `low_income_pct`
-- Q3: `pct_older_housing` (% of homes built in 1980 or earlier), `pct_major_repairs`, `pct_condos`
+- Q3: `pct_older_housing` (% of homes built in 1980 or earlier), `pct_major_repairs`, `median_household_income`
 - Q4: `median_household_income`, `pct_transit_commuters`, `majority_highrise`
 
 **Data Wrangling:**
 
-- \[Any transformations, new variables created\]
+- Q1 and Q4: income shown in \$10,000s; shorter labels for regions and high-rise groups
+- Q2: rent and income shown in \$1,000s
 
 ## Question #1: Jiayi Wu - Income and Renting
 
