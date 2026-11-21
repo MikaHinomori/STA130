@@ -40,6 +40,7 @@ out.width = "80%"
 ```{r load-data, echo=FALSE}
 ### Read in data
 toronto <- read_csv("toronto_neighbourhoods_STA130.csv", show_col_types = FALSE)
+data <- read_csv("toronto_neighbourhoods_STA130.csv", show_col_types = FALSE)
 ```
 
 ## Introduction
