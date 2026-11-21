@@ -432,12 +432,13 @@ Insights for Q4:
 
 - Variables come from different years, so some may have changed since.
 - Q4: Neighborhoods are divided into only two groups based on if this building is higher than 5 floors. This may hide differences between neighborhoods with different proportions of high-rise housing. For example, a 51% highrise rate neighborhood is in the same category with a 95% highrise rate neighborhood.
+- Neighbourhood-level associations may not apply to individual dwellings or households.
 
 **Future Directions:**
 
 - Standardize all datasets to a common year.
 - Use `pct_highrise` to better capture neighborhood housing structure.
-- Neighbourhood-level associations may not apply to individual dwellings or households. Future research could link each dwelling’s age and repair condition with its household’s income.
+- Future research could link each dwelling’s age and repair condition with its household’s income.
 
 ## Key Findings
 
