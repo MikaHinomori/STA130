@@ -71,6 +71,7 @@ data <- read_csv("toronto_neighbourhoods_STA130.csv", show_col_types = FALSE)
 **Research question:** Do Toronto neighbourhoods with lower median household incomes tend to have a higher percentage of renter households, and does this relationship differ across the city's four regions?
 
 - **Why it matters:** Household incomes and renting patterns vary across Toronto. Looking at the relationship in each region could help the City understand differences that a city-wide figure might hide.
+- **Links to our theme:** This question connects to the theme by exploring how household income relates to renting across Toronto's neighbourhoods. By comparing the four regions, we can see whether this relationship varies across the city.
 
 ## Q1: Variables & Approach
 
