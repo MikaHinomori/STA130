@@ -1,6 +1,5 @@
 ---
-title: "..."
-subtitle: "Project subtitle (if applicable)"
+title: "How Income Shapes Life in Toronto's Neighbourhoods"
 author: "Jerry Jiang  | Mingzhe Li | Yuk Shing Pang | Jiayi Wu | Group 202-A"
 date: today
 format:
