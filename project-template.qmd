@@ -437,6 +437,7 @@ Insights for Q4:
 
 - Standardize all datasets to a common year.
 - Use `pct_highrise` to better capture neighborhood housing structure.
+- Neighbourhood-level associations may not apply to individual dwellings or households. Future research could link each dwelling’s age and repair condition with its household’s income.
 
 ## Key Findings
 
