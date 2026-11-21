@@ -457,7 +457,7 @@ Insights for Q4:
 **Key Findings:**
 
 - **Renting (Q1):** Lower-income neighbourhoods have more renters in all four regions.
-- **Housing costs (Q2):** 
+- **Housing costs (Q2):** Neighborhood rents explain far more renter burden (53%) than income (2%), while subsidized housing is associated with lower burden.
 - **Housing condition (Q3):** Neighbourhoods with more older homes need more major repairs.
 - **Getting to work (Q4):** Higher-income Toronto neighbourhoods tend to have lower public transit commuting rates，with a steeper negative regression slope in majority high-rise neighbourhoods.
 
