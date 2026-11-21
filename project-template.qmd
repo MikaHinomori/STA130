@@ -309,9 +309,9 @@ Insights for Q3:
 
 **Major question:** How does median household income relate to public transit commuting rates across Toronto neighbourhoods, and how does this relationship vary by majority high-rise status?
 
-**Why it matters:** 
+**Why it matters:** Understanding the preferences for commuting modes among different income groups—based on the types of communities they choose to reside in—offers a fresh perspective on the selection of residential environments for low-income populations.
 
-**Link to our theme:** 
+**Link to our theme:** This explores how income influences daily commuting patterns in Toronto, adding a transportation dimension to the group’s theme on living conditions.
 
 ## Q4: Variables & Approach
 **Variables used:**
