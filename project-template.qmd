@@ -436,6 +436,7 @@ Insights for Q4:
 **Future Directions:**
 
 - Standardize all datasets to a common year.
+- Use `pct_highrise` to better capture neighborhood housing structure.
 
 ## Key Findings
 
