@@ -464,13 +464,3 @@ Insights for Q4:
 **Connection to Theme:**
 
 \[How findings relate back to unifying theme\]
-
-## References & Acknowledgements (if applicable)
-
-**References:**
-
-- \[Citation 1, if applicable\]
-
-**Acknowledgements:**
-
-- \[Any acknowledgements, if applicable\]
