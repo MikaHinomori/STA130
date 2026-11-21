@@ -209,7 +209,6 @@ plot_grid(q2_rent, plot_grid(q2_subsidy, q2_income, ncol = 1), ncol = 2)
 ## Q2: Summary Table
 
 ```{r}
-library(broom)
 model_rent    <- lm(pct_renters_30plus_shelter ~ median_monthly_rent, data = toronto)
 model_subsidy <- lm(pct_renters_30plus_shelter ~ pct_subsidized_renters, data = toronto)
 model_income  <- lm(pct_renters_30plus_shelter ~ median_household_income, data = toronto)
