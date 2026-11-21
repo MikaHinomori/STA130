@@ -441,29 +441,25 @@ Insights for Q4:
 
 - *Slope comparison:* For the same $10k income difference, the predicted transit commuting rate decreases by 2.37 percentage points in majority high-rise neighbourhoods, compared with 1.46 in other neighbourhoods, a difference of 0.91 percentage points.
 
-**Q4 limitations**
-- Neighborhoods are divided into only two groups based on if this building is higher than 5 floors. This may hide differences between neighborhoods with different proportions of high-rise housing. For example, a 51% highrise rate neighborhood is in the same category with a 95% highrise rate neighborhood.
-
 ## Overall Limitations
-
-It is optional to include this as a stand-alone section at the end, you could also choose to discuss this at the end of each research question
 
 **Data Limitations:**
 
-- \[Limitation 1\]
-- \[Limitation 2\]
+- Variables come from different years, so some may have changed since.
+- Q4: Neighborhoods are divided into only two groups based on if this building is higher than 5 floors. This may hide differences between neighborhoods with different proportions of high-rise housing. For example, a 51% highrise rate neighborhood is in the same category with a 95% highrise rate neighborhood.
 
 **Future Directions:**
 
-- \[How these could be addressed\]
+- 
 
 ## Overall Conclusion
 
 **Key Findings:**
 
-- \[Finding 1 related to theme\]
-- \[Finding 2 related to theme\]
-- \[Finding 3 related to theme\]
+- **Renting (Q1):** Lower-income neighbourhoods have more renters in all four regions.
+- **Housing costs (Q2):** 
+- **Housing condition (Q3):** Neighbourhoods with more older homes need more major repairs.
+- **Getting to work (Q4):** Lower-income neighbourhoods rely more on public transit, especially high-rise ones.
 
 **Connection to Theme:**
 
