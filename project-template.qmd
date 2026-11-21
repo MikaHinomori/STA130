@@ -448,3 +448,4 @@ Insights for Q4:
 ## Connection to Theme
 
 - **Housing costs (Q2):** Although income is an important determinant of living quality, our findings suggest that choosing a neighborhood with lower median rent can reduce renter burden and improve overall quality of life.
+- **Getting to work (Q4):** Lower-income neighbourhoods tend to have higher public transit commuting rates, highlighting the importance of reliable public transit in Toronto’s lower-income communities.
